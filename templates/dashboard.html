@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CashForecast — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="logo brand-word">CashF<span class="coin-o"><span class="coin-inner">₹</span></span>recast</div>
+      <nav class="sidebar-nav">
+        <a class="nav-link active" href="/dashboard.html"><i data-feather="home"></i> Dashboard</a>
+        <a class="nav-link" href="/investments.html"><i data-feather="pie-chart"></i> Investments</a>
+        <a class="nav-link" href="/insurance.html"><i data-feather="shield"></i> Protection</a>
+        <a class="nav-link" href="/transactions.html"><i data-feather="list"></i> Transactions</a>
+        <a class="nav-link" href="/settings.html"><i data-feather="settings"></i> Settings</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div class="topbar">
+        <div>
+          <div class="text-muted">Financial control center</div>
+          <h1 style="margin:0.35rem 0 0;" id="welcome-msg">Main dashboard</h1>
+          <div id="user-display" class="text-muted" style="font-size: 0.9rem; margin-top: 0.2rem;"></div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="logout-btn" title="Logout"><i data-feather="log-out"></i></button>
+          <a class="primary-btn" href="/upload.html">Upload statements</a>
+        </div>
+      </div>
+
+      <div id="demo-banner" class="demo-banner" style="display:none;"></div>
+      <section id="autonomous-alert-panel" class="glass-card panel-card" style="display:none; border-color: rgba(245, 158, 11, 0.35);">
+        <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap;">
+          <div>
+            <div class="text-muted">System-to-user financial alert</div>
+            <h3 style="margin:0.35rem 0 0;" id="autonomous-alert-title">Autonomous alert status</h3>
+          </div>
+          <span class="badge amber" id="autonomous-alert-badge">Monitoring</span>
+        </div>
+        <div class="text-muted" id="autonomous-alert-body" style="margin-top:0.85rem;"></div>
+      </section>
+      <section class="glass-card panel-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+          <div>
+            <div class="text-muted">Connected banks</div>
+            <h2 style="margin:0.4rem 0 0;">Bank switcher</h2>
+          </div>
+          <div class="pill" id="notif-pill">0 new alerts</div>
+        </div>
+        <div class="bank-switcher" id="bank-switcher" style="margin-top:1rem;"></div>
+      </section>
+
+      <section class="summary-grid" id="summary-grid">
+        <div class="glass-card summary-card skeleton" style="height:120px;"></div>
+        <div class="glass-card summary-card skeleton" style="height:120px;"></div>
+        <div class="glass-card summary-card skeleton" style="height:120px;"></div>
+        <div class="glass-card summary-card skeleton" style="height:120px;"></div>
+      </section>
+
+      <section class="hero-grid">
+        <div class="glass-card panel-card">
+          <div class="text-muted">Cash-out countdown</div>
+          <div class="countdown-wrap" style="margin-top:1rem;">
+            <div class="countdown-ring">
+              <svg viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="46"></circle>
+                <circle class="ring-progress" id="cashout-ring" cx="60" cy="60" r="46"></circle>
+              </svg>
+            </div>
+            <div>
+              <div class="metric-value" id="days-remaining">-- days</div>
+              <div class="text-muted">Estimated cash-out date</div>
+              <div style="font-weight:700; margin-top:0.35rem;" id="cashout-date">--</div>
+              <div class="metric-delta" id="cashout-trend">Trend insight loading...</div>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card panel-card">
+          <div class="text-muted">Spending health score</div>
+          <div class="gauge">
+            <svg viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="46"></circle>
+              <circle class="ring-progress" id="health-ring" cx="60" cy="60" r="46"></circle>
+            </svg>
+            <div class="gauge-center">
+              <div>
+                <div style="font-size:2rem; font-weight:800;" id="health-overall">--</div>
+                <div class="text-muted">out of 100</div>
+              </div>
+            </div>
+          </div>
+          <div class="list-stack" id="health-bars"></div>
+        </div>
+      </section>
+
+      <section class="chart-grid">
+        <div class="glass-card panel-card chart-card">
+          <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center; flex-wrap:wrap;">
+            <div>
+              <div class="text-muted">AI prediction chart</div>
+              <h3 style="margin:0.35rem 0 0;">Historical vs forecast balance</h3>
+            </div>
+            <div class="pill" id="forecast-model">LinearRegression+ARIMA</div>
+          </div>
+          <canvas id="forecast-chart"></canvas>
+        </div>
+        <div class="glass-card panel-card chart-card">
+          <div class="text-muted">Spending by category</div>
+          <h3 style="margin:0.35rem 0 1rem;">Category mix</h3>
+          <canvas id="category-chart"></canvas>
+          <div class="list-stack" id="category-bars" style="margin-top:1rem;"></div>
+        </div>
+      </section>
+
+      <section class="two-col">
+        <div class="glass-card panel-card chart-card">
+          <div class="text-muted">Weekly spending</div>
+          <h3 style="margin:0.35rem 0 1rem;">Four-week trend</h3>
+          <canvas id="weekly-chart"></canvas>
+        </div>
+        <div class="glass-card panel-card">
+          <div class="text-muted">Day-of-week personality</div>
+          <h3 style="margin:0.35rem 0 1rem;">Peak spending day</h3>
+          <div id="dow-insight" class="text-muted"></div>
+          <div id="dow-bars" class="list-stack" style="margin-top:1rem;"></div>
+        </div>
+      </section>
+
+      <section class="two-col">
+        <div class="glass-card panel-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+            <div>
+              <div class="text-muted">Anomaly alerts</div>
+              <h3 style="margin:0.35rem 0 0;">Unusual transactions</h3>
+            </div>
+            <span class="badge red" id="anomaly-count">0 anomalies</span>
+          </div>
+          <div class="list-stack" id="anomaly-list" style="margin-top:1rem;"></div>
+        </div>
+        <div class="glass-card panel-card">
+          <div class="text-muted">Smart recommendations</div>
+          <h3 style="margin:0.35rem 0 1rem;">Highest-impact suggestions</h3>
+          <div class="list-stack" id="recommendation-list"></div>
+        </div>
+      </section>
+
+      <section class="two-col">
+        <div class="glass-card panel-card">
+          <div class="text-muted">Recurring bills</div>
+          <h3 style="margin:0.35rem 0 1rem;">Detected monthly charges</h3>
+          <div class="list-stack" id="recurring-list"></div>
+        </div>
+        <div class="glass-card panel-card">
+          <div class="text-muted">Cash flow net score</div>
+          <h3 style="margin:0.35rem 0 1rem;">Positive vs negative months</h3>
+          <div id="net-score-grid" style="display:grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap:0.8rem;"></div>
+        </div>
+      </section>
+
+      <section class="glass-card panel-card table-wrap">
+        <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center; flex-wrap:wrap; padding:0 0 0.8rem;">
+          <div>
+            <div class="text-muted">Latest transactions</div>
+            <h3 style="margin:0.35rem 0 0;">Filtered live by active bank</h3>
+          </div>
+          <a href="/transactions.html" class="secondary-btn">Open full log</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Bank</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="transaction-body"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <div class="toast-stack" id="toast-stack"></div>
+  <div class="chatbot-container" id="chatbot-container">
+    <div class="chatbot-window" id="chatbot-window" style="display:none;">
+      <div class="chatbot-header">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <div class="bot-avatar"><i data-feather="cpu"></i></div>
+          <div>
+            <div style="font-weight:700; font-size:0.9rem;">ForeCashy AI</div>
+            <div style="font-size:0.7rem; opacity:0.8;">Financial Assistant</div>
+          </div>
+        </div>
+        <button class="close-chat" id="close-chat"><i data-feather="x"></i></button>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="message bot">
+          Hello! I'm ForeCashy AI. Ask me about your balance, spending, loans, or find a specific transaction!
+        </div>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" id="chat-input" placeholder="Ask a question..." />
+        <button id="send-chat"><i data-feather="send"></i></button>
+      </div>
+    </div>
+    <button class="chatbot-toggle" id="chatbot-toggle">
+      <i data-feather="message-circle"></i>
+    </button>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CashForecast — Upload</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="upload-layout page-shell">
+    <div class="upload-card glass-card">
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <div>
+          <div class="brand-word" style="font-size:2rem;">CashF<span class="coin-o"><span class="coin-inner">₹</span></span>recast</div>
+          <h1 style="margin:0.7rem 0 0.4rem;">Upload your bank statements</h1>
+          <p class="text-muted" style="max-width:40rem;">Drop up to 3 CSV or PDF statements. CashForecast will normalize multi-bank data, classify transactions, and generate an AI-powered forecast.</p>
+        </div>
+        <a href="/dashboard.html" class="ghost-btn" style="display:inline-flex; align-items:center; justify-content:center;">Skip to demo</a>
+      </div>
+
+      <div class="upload-slots">
+        <div class="upload-slot glass-card" data-bank="HDFC">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>HDFC Bank</strong>
+            <span class="pill">CSV / PDF</span>
+          </div>
+          <label class="drop-zone">
+            <input type="file" accept=".csv,.pdf" hidden />
+            <div>
+              <strong>Drop statement here</strong>
+              <div class="text-muted">or click to browse</div>
+            </div>
+          </label>
+          <div class="upload-progress"><span></span></div>
+          <div class="text-muted file-status">No file selected</div>
+        </div>
+        <div class="upload-slot glass-card" data-bank="SBI">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>SBI</strong>
+            <span class="pill">CSV / PDF</span>
+          </div>
+          <label class="drop-zone">
+            <input type="file" accept=".csv,.pdf" hidden />
+            <div>
+              <strong>Drop statement here</strong>
+              <div class="text-muted">or click to browse</div>
+            </div>
+          </label>
+          <div class="upload-progress"><span></span></div>
+          <div class="text-muted file-status">No file selected</div>
+        </div>
+        <div class="upload-slot glass-card" data-bank="ICICI">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>ICICI Bank</strong>
+            <span class="pill">CSV / PDF</span>
+          </div>
+          <label class="drop-zone">
+            <input type="file" accept=".csv,.pdf" hidden />
+            <div>
+              <strong>Drop statement here</strong>
+              <div class="text-muted">or click to browse</div>
+            </div>
+          </label>
+          <div class="upload-progress"><span></span></div>
+          <div class="text-muted file-status">No file selected</div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-top:1.5rem; flex-wrap:wrap;">
+        <div class="text-muted">At least one uploaded statement enables personalized analysis. Otherwise the dashboard will open in demo mode.</div>
+        <button id="analyze-btn" class="primary-btn" disabled>Analyze My Finances</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast-stack" id="toast-stack"></div>
+  <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+</body>
+</html>

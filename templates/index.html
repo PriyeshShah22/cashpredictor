@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CashForecast — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="auth-layout page-shell">
+    <section class="auth-brand">
+      <div class="pill">AI-first fintech for Indian banking</div>
+      <div>
+        <div class="logo brand-word" style="font-size: clamp(2.5rem, 6vw, 4.6rem);">CashF<span class="coin-o"><span class="coin-inner">₹</span></span>recast</div>
+        <h1 style="font-size: clamp(2rem, 4vw, 3.4rem); margin: 1rem 0 0.6rem;">Predict before you go broke.</h1>
+        <p class="text-muted" id="typing-tagline" style="font-size: 1.05rem; max-width: 42rem;"></p>
+      </div>
+      <div class="glass-card" style="padding: 1.3rem; max-width: 520px;">
+        <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center;">
+          <div>
+            <div class="text-muted">Why CashForecast</div>
+            <strong>Forecast runway, detect anomalies, recommend smarter moves.</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="auth-card-wrap">
+      <div class="auth-card glass-card">
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Login</button>
+          <button class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+        <form id="auth-form" class="auth-form">
+          <div>
+            <label class="text-muted">Email</label>
+            <input class="form-input" type="email" placeholder="you@example.com" required />
+          </div>
+          <div id="signup-name" style="display:none;">
+            <label class="text-muted">Full name</label>
+            <input class="form-input" type="text" id="name-field" placeholder="Aarav Mehta" />
+          </div>
+          <div class="password-wrap">
+            <label class="text-muted">Password</label>
+            <input id="password-field" class="form-input" type="password" placeholder="••••••••" required />
+            <button type="button" class="password-toggle" id="password-toggle">Show</button>
+          </div>
+          <button class="primary-btn" type="submit" id="submit-btn">Continue to statement upload</button>
+          <div id="auth-error" style="color: #ff4d4d; text-align: center; margin-top: 0.5rem; font-size: 0.9rem; display: none;"></div>
+          <div class="text-muted" style="text-align:center; font-size:0.9rem;">LOGIN/SIGNUP TO USE</div>
+        </form>
+      </div>
+    </section>
+  </div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

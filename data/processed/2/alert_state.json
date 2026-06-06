@@ -1,0 +1,23 @@
+{
+  "last_alert_key": "category:Shopping:2026-02|2026-03|2026-04:18587.00|21030.00|30414.00",
+  "last_email_status": "demo_console",
+  "last_checked_at": "2026-04-23T16:38:12.967201Z",
+  "last_alert": {
+    "scope": "category",
+    "label": "Shopping",
+    "periods": [
+      "2026-02",
+      "2026-03",
+      "2026-04"
+    ],
+    "recent_values": [
+      18587.0,
+      21030.0,
+      30414.0
+    ],
+    "percentage_increase": 63.63,
+    "estimated_monthly_impact": 10605.5,
+    "suggested_action": "Pause non-essential purchases and compare with your monthly budget.",
+    "alert_key": "category:Shopping:2026-02|2026-03|2026-04:18587.00|21030.00|30414.00"
+  }
+}

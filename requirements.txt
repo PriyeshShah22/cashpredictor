@@ -1,0 +1,11 @@
+# Recommended Python version: 3.11 or 3.12
+flask==3.0.0
+flask-cors==4.0.0
+pandas==2.2.0
+numpy==1.26.0
+scikit-learn==1.4.0
+statsmodels==0.14.0; python_version < '3.13'
+scipy==1.12.0
+pdfplumber==0.10.0
+python-dateutil==2.8.2
+flask-sqlalchemy==3.1.1

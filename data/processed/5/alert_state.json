@@ -1,0 +1,23 @@
+{
+  "last_alert_key": "category:Others:2024-01|2024-02|2024-04:42000.00|55000.00|80000.00",
+  "last_email_status": "demo_console",
+  "last_checked_at": "2026-04-23T19:15:53.565565Z",
+  "last_alert": {
+    "scope": "category",
+    "label": "Others",
+    "periods": [
+      "2024-01",
+      "2024-02",
+      "2024-04"
+    ],
+    "recent_values": [
+      42000.0,
+      55000.0,
+      80000.0
+    ],
+    "percentage_increase": 90.48,
+    "estimated_monthly_impact": 31500.0,
+    "suggested_action": "Review the dashboard and reduce discretionary spending before the next billing cycle.",
+    "alert_key": "category:Others:2024-01|2024-02|2024-04:42000.00|55000.00|80000.00"
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CashForecast — Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="logo brand-word">CashF<span class="coin-o"><span class="coin-inner">₹</span></span>recast</div>
+      <nav class="sidebar-nav">
+        <a class="nav-link" href="/dashboard.html"><i data-feather="home"></i> Dashboard</a>
+        <a class="nav-link" href="/investments.html"><i data-feather="pie-chart"></i> Investments</a>
+        <a class="nav-link" href="/insurance.html"><i data-feather="shield"></i> Protection</a>
+        <a class="nav-link" href="/transactions.html"><i data-feather="list"></i> Transactions</a>
+        <a class="nav-link active" href="/settings.html"><i data-feather="settings"></i> Settings</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div class="topbar">
+        <div>
+          <div class="text-muted">Profile and controls</div>
+          <h1 style="margin:0.35rem 0 0;">Settings</h1>
+        </div>
+      </div>
+      <section class="glass-card panel-card">
+        <div class="auth-form" style="max-width:560px;">
+          <input class="form-input" id="profile-name" placeholder="Name" />
+          <input class="form-input" id="profile-email" placeholder="Email" />
+          <div class="text-muted" id="alert-email-note" style="font-size:0.9rem; margin-top:-0.35rem;">Financial alerts will be delivered to your account email</div>
+          <select class="form-select" id="currency-select">
+            <option value="INR">₹ Indian Rupee (Default)</option>
+          </select>
+          <label class="setting-row"><span>Anomaly alerts</span><input type="checkbox" id="toggle-anomaly" checked /></label>
+          <div class="text-muted" style="font-size:0.9rem;">These preferences are demo toggles. Email delivery always uses your account email stored in the database.</div>
+          <label class="setting-row"><span>Weekly digest</span><input type="checkbox" id="toggle-digest" checked /></label>
+          <button class="primary-btn" id="save-settings">Save preferences</button>
+        </div>
+      </section>
+      <section class="glass-card panel-card">
+        <div class="text-muted">Connected banks</div>
+        <h3 style="margin:0.35rem 0 1rem;">Active data sources</h3>
+        <div class="list-stack" id="connected-banks-list"></div>
+      </section>
+      <section class="glass-card panel-card">
+        <div class="text-muted">Data actions</div>
+        <h3 style="margin:0.35rem 0 1rem;">Reset the workspace</h3>
+        <button class="secondary-btn" id="reset-data">Clear data and restore demo</button>
+      </section>
+    </main>
+  </div>
+  <div class="toast-stack" id="toast-stack"></div>
+  <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+</html>
